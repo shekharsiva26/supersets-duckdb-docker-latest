@@ -28,8 +28,6 @@ Go to http://localhost:8080/login/ and login with `username=admin` and `password
 ## Check database connection
 Go to _Database Connections_ (http://localhost:8080/databaseview/list/) to validate the database connection has been created:
 
-![Overview of database connections in Superset UI](docs/img/database-connection-overview.png)
-
 Click the _Edit_ button to see the connection details:
 
 
@@ -38,12 +36,9 @@ Click the _Edit_ button to see the connection details:
 
 Click `TEST CONNECTION` and make sure you see this popup message:
 
-![Popup message indicating a good connection](docs/img/connection-looks-good.png)
+
 # Querying files from Superset using DuckDB
-Go to _SQL Lab_ (http://localhost:8080/sqllab/) to query `Parquet`, `JSON`, or `CSV`, files as follows:
-
-![Apache Superset DuckDB SQL Lab](docs/img/sql-lab-duckdb-parquet.png)
-
+Go to _SQL Lab_ (http://localhost:8080/sqllab/) to query using below queries. 
 
 ```sql
 SHOW TABLES
