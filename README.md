@@ -44,4 +44,4 @@ Go to _SQL Lab_ (http://localhost:8080/sqllab/) to query using below queries.
 SHOW TABLES
 
 SELECT *
-FROM '/data/json_table/*.json'
+FROM users
