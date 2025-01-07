@@ -3,14 +3,14 @@
 # Custom Docker image
 Execute the steps below to setup a local Apache Superset instance—with DuckDB support—using Docker.
 
-First create a .duckdb file using the latest version of the duckdb cli. Create a table called Users and insert 3 records in it.
+First create a test.duckdb file using the latest version of the duckdb cli. Create a table called Users and insert 3 records in it.
 
 
 ## Build the image
 ```Shell
 docker build -t supersets-duckdb-docker
 ```
-The host path of the mount will be used in the source setting below
+The host path of the mount which contains test.duckdb will be used in the source setting below
 ## Run the container
 ```Shell
 sudo docker run -d -p 8080:8088     -e "SUPERSET_SECRET_KEY=jQYaBun0kb3qfFnklbwB3n9WzmyK65LbFsmzu+guRcpdUo/5xV5w8Whb"     --mount type=bind,source=/home/shekharsiva/testdir,target=/data     --name supersets-duckdb-docker     supersets-duckdb-docker
