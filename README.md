@@ -1,22 +1,20 @@
 # Apache Superset – DuckDB
-This repo presents a minimal setup to read `Parquet`, `JSON`, and `CSV` files with Apache Superset. Using an _in-memory_ DuckDB database, a live data connection is made between Superset and a filesystem.
 
 # Custom Docker image
 Execute the steps below to setup a local Apache Superset instance—with DuckDB support—using Docker.
 
+First create a .duckdb file using the latest version of the duckdb cli. Create a table called Users and insert 3 records in it.
+
+
 ## Build the image
 ```Shell
-docker build -t jorritsandbrink/superset-duckdb docker
+docker build -t supersets-duckdb-docker
 ```
-
+The host path of the mount will be used in the source setting below
 ## Run the container
 ```Shell
-docker run -d -p 8080:8088 \
-    -e "SUPERSET_SECRET_KEY=your_secret_key" \
-    --mount type=bind,source=/$(pwd)/data,target=/data \
-    --name superset-duckdb \
-    jorritsandbrink/superset-duckdb
-```
+sudo docker run -d -p 8080:8088     -e "SUPERSET_SECRET_KEY=jQYaBun0kb3qfFnklbwB3n9WzmyK65LbFsmzu+guRcpdUo/5xV5w8Whb"     --mount type=bind,source=/home/shekharsiva/testdir,target=/data     --name supersets-duckdb-docker     supersets-duckdb-docker
+
 > Note: the local `/data` folder is mounted to make the data files accessible from within the container.
 ## Setup Superset
 ```Shell
@@ -34,11 +32,8 @@ Go to _Database Connections_ (http://localhost:8080/databaseview/list/) to valid
 
 Click the _Edit_ button to see the connection details:
 
-<img src='docs/img/duckdb-database-connection.png' alt='DuckDB database connection configuration in Superset UI' width='300'/>
 
-SQLAlchemy URI:
 ```
-duckdb:///:memory:
 ```
 
 Click `TEST CONNECTION` and make sure you see this popup message:
@@ -49,27 +44,9 @@ Go to _SQL Lab_ (http://localhost:8080/sqllab/) to query `Parquet`, `JSON`, or `
 
 ![Apache Superset DuckDB SQL Lab](docs/img/sql-lab-duckdb-parquet.png)
 
-The queries use a glob syntax to read multiple files as documented on https://duckdb.org/docs/data/multiple_files/overview.html.
 
-## Parquet
 ```sql
-SELECT *
-FROM '/data/parquet_table/*.parquet'
-```
+SHOW TABLES
 
-## JSON
-```sql
 SELECT *
 FROM '/data/json_table/*.json'
-```
-
-## CSV
-```sql
-SELECT *
-FROM '/data/csv_table/*.csv'
-```
-
-# References
--  [Portable Data Stack](https://github.com/cnstlungu/portable-data-stack-dagster/tree/main)
-- [Preparing Apache Superset to working with Delta Lake, DuckDB, Prophet, Python LDAP Active Directory, Jinja and MS-SQL driver using Ubuntu](https://medium.com/@syarifz.id/preparing-apache-superset-to-working-with-delta-lake-duckdb-prophet-python-ldap-active-d9da7a9a68c3)
-- [Create DuckDB Connection and Dataset using Delta Lake Parquet File in Apache Superset](https://medium.com/@syarifz.id/create-duckdb-connection-and-create-dataset-using-parquet-file-in-apache-superset-8765e5772342)
